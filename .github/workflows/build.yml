@@ -24,8 +24,8 @@ jobs:
     - name: Compile CloudSim Java files
       run: |
         mkdir -p out
-        javac -cp libs/cloudsim-3.0.3.jar -d out latency/simulation/*.java
+        javac -cp "libs/*" -d out src/latency/simulation/*.java
 
     - name: Run Simulation
       run: |
-        java -cp "libs/cloudsim-3.0.3.jar:out" latency.simulation.LatencySim
+        java -cp "libs/*:out" latency.simulation.LatencySim
