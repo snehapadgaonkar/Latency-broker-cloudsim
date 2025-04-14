@@ -1,0 +1,30 @@
+name: Java CI for CloudSim
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+
+    - name: Compile CloudSim Java files
+      run: |
+        mkdir -p out
+        javac -cp libs/cloudsim-3.0.3.jar -d out latency/simulation/*.java
+
+    - name: Run Simulation
+      run: |
+        java -cp "libs/cloudsim-3.0.3.jar:out" latency.simulation.LatencySim
